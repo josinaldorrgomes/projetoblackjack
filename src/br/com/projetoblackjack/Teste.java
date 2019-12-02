@@ -4,12 +4,13 @@ public class Teste {
 
     public static void main(String[] args) throws ExcecaoBaralhoVazio {
         
-        Baralho baralho = new Baralho();
-        baralho.listarCartas();
-        baralho.embaralhar();
-        baralho.listarCartas();
-        baralho.pegarCarta();
-        baralho.pegarCarta();
+        Mesa mesa = new Mesa();
+        mesa.jogar();
+        //Baralho baralho = new Baralho();
+        //baralho.listarCartas();
+        //baralho.listarCartas();
+        //baralho.pegarCarta();
+        //baralho.pegarCarta();
 
     }
 }

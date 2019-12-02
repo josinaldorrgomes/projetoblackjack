@@ -1,12 +1,15 @@
 package br.com.projetoblackjack;
 
 import java.util.Date;
+import java.util.Scanner;
 
 public class Mesa {
 
     private Jogador jogador1;
     private Jogador jogador2;
     private Baralho baralho;
+    private int pontosJogador1;
+    private int pontosJogador2;
 
     public Mesa() {
         this.jogador1 = new Jogador("João da Silva", new Date(1900, 01, 10), "Castanho", "Silva", "Silva", "silva@gmail.com");
@@ -39,11 +42,47 @@ public class Mesa {
         listarCartas();
     }
 
-    public void embaralhar() {
-        embaralhar();
+    public void jogar() throws ExcecaoBaralhoVazio {
+        try {
+            do {
+                Scanner entrada = new Scanner(System.in);
+                System.out.println("Degite 1 para puxar uma carta ou 2 para passar a jogada:");
+                int opcao = entrada.nextInt();
+                switch (opcao) {
+                    case 1:
+                        if (pontosJogador1 < 21) {
+                            baralho.pegarCarta();
+                            pontosJogador1 += baralho.pegarCarta();
+                            mostrarPlacar();
+                        } else {
+                            System.out.println("O jogador 2 " + mensagemVitoria());
+                        }
+                        break;
+                    case 2:
+                        if (pontosJogador2 < 21) {
+                            baralho.pegarCarta();
+                            pontosJogador2 += baralho.pegarCarta();
+                            mostrarPlacar();
+                        } else {
+                            System.out.println("O jogador 1 " + mensagemVitoria());
+                        }
+                        break;
+                }
+                baralho.embaralhar();
+            } while (baralho.getCartas().size() > 0);
+        } catch (Exception e) {
+            new RuntimeException("Ocorreu um erro no método jogar!", e);
+        }
     }
 
-    protected void pegarCarta() {
-        pegarCarta();
+    public void mostrarPlacar() {
+        System.out.println("-----Placar-----");
+        System.out.println(jogador1.getNome() + ": " + pontosJogador1 + " pontos");
+        System.out.println(jogador2.getNome() + ": " + pontosJogador2 + " pontos");
+        System.out.println("----------------");
+    }
+
+    public String mensagemVitoria() {
+        return "venceu!!!";
     }
 }

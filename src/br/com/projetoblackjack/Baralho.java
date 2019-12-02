@@ -68,8 +68,8 @@ public class Baralho {
     }
 
     public void listarCartas() {
-        for (int i = 0; i < 52; i++) {
-            System.out.println(cartas.get(i).getNumero() + " de " + cartas.get(i).getNaipe() + ". Valor: " + cartas.get(i).getValor());
+        for (Carta carta : cartas) {
+            System.out.println(carta.getNumero() + " de " + carta.getNaipe() + ". Valor: " + carta.getValor());
         }
     }
 
@@ -77,15 +77,21 @@ public class Baralho {
         Collections.shuffle(cartas);
     }
 
-    public void pegarCarta() throws ExcecaoBaralhoVazio {
+    public int pegarCarta() throws ExcecaoBaralhoVazio {
         try {
             if (cartas.size() > 0) {
-                Carta c = cartas.remove(0);
-                System.out.println("Carta retirada: " + c.getNumero() + " de " + c.getNaipe());
+                Carta carta = cartas.remove(0);
+                System.out.println("Carta retirada: " + carta.getNumero() + " de " + carta.getNaipe());
+                return carta.getValor();
             }
         } catch (Exception e) {
-            new RuntimeException("Baralho vazio!", e);
+            new RuntimeException("Baralho vazio!", e);            
         }
+        return 0;
+    }
+
+    public List<Carta> getCartas() {
+        return cartas;
     }
 
 }
